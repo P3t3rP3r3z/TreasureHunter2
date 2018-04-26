@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.peterperez.colorslider.MainActivity">
+
+
+    <SurfaceView
+        android:id="@+id/surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:layout_gravity="top"
+        android:layout_margin="10dp"
+        />
+
+    <SeekBar
+        android:id="@+id/r_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:thumbTint="#ff3300"
+        android:padding="20dp" />
+
+    <SeekBar
+        android:id="@+id/g_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:thumbTint="#00cc00"
+        android:padding="20dp" />
+
+    <SeekBar
+        android:id="@+id/b_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:thumbTint="#0066ff"
+        android:padding="20dp" />
+
+    <TextView
+        android:id="@+id/textv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hexidecimal Value of Color"
+        android:textSize="30sp"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="Reset " />
+
+
+</LinearLayout>
