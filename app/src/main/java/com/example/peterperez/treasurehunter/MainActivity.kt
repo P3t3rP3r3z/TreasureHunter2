@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), Listener {
     private var mEtMessage: EditText? = null
     private var mBtWrite: Button? = null
     private var mBtRead: Button? = null
-    private var btn_clue_list: Button?= null
+    private var btn_clue_list: Button? = null
     private var clue:EditText? = null
     private var listClueFragment:ListClueFragment?=null
     private var mNfcWriteFragment: NFCWriteFragment? = null
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), Listener {
     private var mNfcAdapter: NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        btn_clue_list = list_button
         MainActivity.cluechipdb =  Room.databaseBuilder(this,
                 MyDatabase::class.java, "cluechipdb").allowMainThreadQueries().build()
         super.onCreate(savedInstanceState)
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity(), Listener {
         mEtMessage = edit_Text as EditText
         mBtWrite = write_button as Button
         mBtRead = read_button as Button
-        btn_clue_list =btn_clue_list as Button
+        btn_clue_list = list_button as Button
 
         mBtWrite!!.setOnClickListener { view -> showWriteFragment() }
         mBtRead!!.setOnClickListener { view -> showReadFragment() }
