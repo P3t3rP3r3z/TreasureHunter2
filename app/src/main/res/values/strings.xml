@@ -12,4 +12,7 @@
                  Select Scan to Start on Your First Clue! \n or \n Enter
                  A Clue Below\nto Create A New Game</string>
     <string name="welcome_screen2">Touch Scan Button to Start the First Clue</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

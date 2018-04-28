@@ -1,6 +1,7 @@
 package com.example.peterperez.treasurehunter
 
 import android.app.PendingIntent
+import android.arch.persistence.room.Room
 import android.content.Intent
 import android.content.IntentFilter
 import android.nfc.NfcAdapter
@@ -30,8 +31,9 @@ class MainActivity : AppCompatActivity(), Listener {
     private var mEtMessage: EditText? = null
     private var mBtWrite: Button? = null
     private var mBtRead: Button? = null
+    private var btn_clue_list: Button?= null
     private var clue:EditText? = null
-
+    private var listClueFragment:ListClueFragment?=null
     private var mNfcWriteFragment: NFCWriteFragment? = null
     private var mNfcReadFragment: NFCReadFragment? = null
 
@@ -41,8 +43,12 @@ class MainActivity : AppCompatActivity(), Listener {
     private var mNfcAdapter: NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        MainActivity.cluechipdb =  Room.databaseBuilder(this,
+                MyDatabase::class.java, "cluechipdb").allowMainThreadQueries().build()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btn_clue_list?.setOnClickListener{view ->listClueFragment}
 
         initViews()
         initNFC()
@@ -53,9 +59,11 @@ class MainActivity : AppCompatActivity(), Listener {
         mEtMessage = edit_Text as EditText
         mBtWrite = write_button as Button
         mBtRead = read_button as Button
+        btn_clue_list =btn_clue_list as Button
 
         mBtWrite!!.setOnClickListener { view -> showWriteFragment() }
         mBtRead!!.setOnClickListener { view -> showReadFragment() }
+
     }
 
     private fun initNFC() {
@@ -107,7 +115,6 @@ class MainActivity : AppCompatActivity(), Listener {
         val ndefDetected = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
         val techDetected = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
         val nfcIntentFilter = arrayOf(techDetected, tagDetected, ndefDetected)
-
         val pendingIntent = PendingIntent.getActivity(
                 this, 0, Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
         if (mNfcAdapter != null)
@@ -139,6 +146,11 @@ class MainActivity : AppCompatActivity(), Listener {
                     val messageToWrite = ":"+chipNumber+":"+mEtMessage!!.text.toString()+":"
                     mNfcWriteFragment = fragmentManager.findFragmentByTag(NFCWriteFragment.TAG) as NFCWriteFragment
                     mNfcWriteFragment!!.onNfcDetected(ndef, messageToWrite)
+                    var chip:ClueChip = ClueChip(chipId = chipNumber.toLong(),hintText =
+                    mEtMessage!!.text.toString())
+                    cluechipdb?.clueChipDao()?.insert(chip)
+
+
 
                 } else {
 
@@ -152,5 +164,6 @@ class MainActivity : AppCompatActivity(), Listener {
     companion object {
 
         val TAG = MainActivity::class.java!!.getSimpleName()
+        var cluechipdb: MyDatabase? = null
     }
 }
