@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), Listener {
     private var mNfcAdapter: NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        btn_clue_list = list_button
+        this.btn_clue_list = list_button
         MainActivity.cluechipdb =  Room.databaseBuilder(this,
                 MyDatabase::class.java, "cluechipdb").allowMainThreadQueries().build()
         super.onCreate(savedInstanceState)
